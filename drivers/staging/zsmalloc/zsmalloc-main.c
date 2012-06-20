@@ -725,4 +725,8 @@ u64 zs_get_total_size_bytes(struct zs_pool *pool)
 }
 EXPORT_SYMBOL_GPL(zs_get_total_size_bytes);
 
+module_init(zs_init);
+module_exit(zs_exit);
+
 MODULE_LICENSE("Dual BSD/GPL");
+MODULE_AUTHOR("Nitin Gupta <ngupta@vflare.org>");
