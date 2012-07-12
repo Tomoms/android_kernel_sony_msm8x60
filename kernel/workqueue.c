@@ -589,7 +589,11 @@ static bool __need_more_worker(struct worker_pool *pool)
 static bool need_more_worker(struct worker_pool *pool)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return !list_empty(&gcwq->worklist) && __need_more_worker(gcwq);
+=======
+	return !list_empty(&pool->worklist) && __need_more_worker(pool);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	return !list_empty(&pool->worklist) && __need_more_worker(pool);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -599,7 +603,11 @@ static bool need_more_worker(struct worker_pool *pool)
 static bool may_start_working(struct worker_pool *pool)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return gcwq->nr_idle;
+=======
+	return pool->nr_idle;
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	return pool->nr_idle;
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -611,7 +619,11 @@ static bool keep_working(struct worker_pool *pool)
 	atomic_t *nr_running = get_pool_nr_running(pool);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return !list_empty(&gcwq->worklist) &&
+=======
+	return !list_empty(&pool->worklist) &&
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	return !list_empty(&pool->worklist) &&
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -636,9 +648,15 @@ static bool need_to_manage_workers(struct worker_pool *pool)
 static bool too_many_workers(struct worker_pool *pool)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	bool managing = gcwq->flags & GCWQ_MANAGING_WORKERS;
 	int nr_idle = gcwq->nr_idle + managing; /* manager is considered idle */
 	int nr_busy = gcwq->nr_workers - nr_idle;
+=======
+	bool managing = pool->gcwq->flags & GCWQ_MANAGING_WORKERS;
+	int nr_idle = pool->nr_idle + managing; /* manager is considered idle */
+	int nr_busy = pool->nr_workers - nr_idle;
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	bool managing = pool->gcwq->flags & GCWQ_MANAGING_WORKERS;
 	int nr_idle = pool->nr_idle + managing; /* manager is considered idle */
@@ -656,10 +674,17 @@ static bool too_many_workers(struct worker_pool *pool)
 static struct worker *first_worker(struct worker_pool *pool)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (unlikely(list_empty(&gcwq->idle_list)))
 		return NULL;
 
 	return list_first_entry(&gcwq->idle_list, struct worker, entry);
+=======
+	if (unlikely(list_empty(&pool->idle_list)))
+		return NULL;
+
+	return list_first_entry(&pool->idle_list, struct worker, entry);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	if (unlikely(list_empty(&pool->idle_list)))
 		return NULL;
@@ -724,8 +749,13 @@ struct task_struct *wq_worker_sleeping(struct task_struct *task,
 {
 	struct worker *worker = kthread_data(task), *to_wakeup = NULL;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	struct global_cwq *gcwq = get_gcwq(cpu);
 	atomic_t *nr_running = get_gcwq_nr_running(cpu);
+=======
+	struct worker_pool *pool = worker->pool;
+	atomic_t *nr_running = get_pool_nr_running(pool);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	struct worker_pool *pool = worker->pool;
 	atomic_t *nr_running = get_pool_nr_running(pool);
@@ -749,8 +779,13 @@ struct task_struct *wq_worker_sleeping(struct task_struct *task,
 	 * without gcwq lock is safe.
 	 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (atomic_dec_and_test(nr_running) && !list_empty(&gcwq->worklist))
 		to_wakeup = first_worker(gcwq);
+=======
+	if (atomic_dec_and_test(nr_running) && !list_empty(&pool->worklist))
+		to_wakeup = first_worker(pool);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	if (atomic_dec_and_test(nr_running) && !list_empty(&pool->worklist))
 		to_wakeup = first_worker(pool);
@@ -778,6 +813,9 @@ static inline void worker_set_flags(struct worker *worker, unsigned int flags,
 	struct global_cwq *gcwq = worker->gcwq;
 =======
 	struct worker_pool *pool = worker->pool;
+<<<<<<< HEAD
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
+=======
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 
 	WARN_ON_ONCE(worker->task != current);
@@ -794,8 +832,13 @@ static inline void worker_set_flags(struct worker *worker, unsigned int flags,
 		if (wakeup) {
 			if (atomic_dec_and_test(nr_running) &&
 <<<<<<< HEAD
+<<<<<<< HEAD
 			    !list_empty(&gcwq->worklist))
 				wake_up_worker(gcwq);
+=======
+			    !list_empty(&pool->worklist))
+				wake_up_worker(pool);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 			    !list_empty(&pool->worklist))
 				wake_up_worker(pool);
@@ -820,7 +863,11 @@ static inline void worker_set_flags(struct worker *worker, unsigned int flags,
 static inline void worker_clr_flags(struct worker *worker, unsigned int flags)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	struct global_cwq *gcwq = worker->gcwq;
+=======
+	struct worker_pool *pool = worker->pool;
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	struct worker_pool *pool = worker->pool;
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -945,9 +992,15 @@ static inline struct list_head *pool_determine_ins_pos(struct worker_pool *pool,
 
 	if (likely(!(cwq->wq->flags & WQ_HIGHPRI)))
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return &gcwq->worklist;
 
 	list_for_each_entry(twork, &gcwq->worklist, entry) {
+=======
+		return &pool->worklist;
+
+	list_for_each_entry(twork, &pool->worklist, entry) {
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 		return &pool->worklist;
 
@@ -981,7 +1034,11 @@ static void insert_work(struct cpu_workqueue_struct *cwq,
 			unsigned int extra_flags)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	struct global_cwq *gcwq = cwq->gcwq;
+=======
+	struct worker_pool *pool = cwq->pool;
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	struct worker_pool *pool = cwq->pool;
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1270,9 +1327,12 @@ static void worker_enter_idle(struct worker *worker)
 
 	if (likely(!(worker->flags & WORKER_ROGUE))) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (too_many_workers(gcwq) && !timer_pending(&gcwq->idle_timer))
 			mod_timer(&gcwq->idle_timer,
 =======
+=======
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 		if (too_many_workers(pool) && !timer_pending(&pool->idle_timer))
 			mod_timer(&pool->idle_timer,
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1287,8 +1347,13 @@ static void worker_enter_idle(struct worker *worker)
 	 */
 	WARN_ON_ONCE(gcwq->trustee_state == TRUSTEE_DONE &&
 <<<<<<< HEAD
+<<<<<<< HEAD
 		     gcwq->nr_workers == gcwq->nr_idle &&
 		     atomic_read(get_gcwq_nr_running(gcwq->cpu)));
+=======
+		     pool->nr_workers == pool->nr_idle &&
+		     atomic_read(get_pool_nr_running(pool)));
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 		     pool->nr_workers == pool->nr_idle &&
 		     atomic_read(get_pool_nr_running(pool)));
@@ -1550,11 +1615,19 @@ static void idle_worker_timeout(unsigned long __pool)
 
 		/* idle_list is kept in LIFO order, check the last one */
 <<<<<<< HEAD
+<<<<<<< HEAD
 		worker = list_entry(gcwq->idle_list.prev, struct worker, entry);
 		expires = worker->last_active + IDLE_WORKER_TIMEOUT;
 
 		if (time_before(jiffies, expires))
 			mod_timer(&gcwq->idle_timer, expires);
+=======
+		worker = list_entry(pool->idle_list.prev, struct worker, entry);
+		expires = worker->last_active + IDLE_WORKER_TIMEOUT;
+
+		if (time_before(jiffies, expires))
+			mod_timer(&pool->idle_timer, expires);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 		worker = list_entry(pool->idle_list.prev, struct worker, entry);
 		expires = worker->last_active + IDLE_WORKER_TIMEOUT;
@@ -1607,7 +1680,11 @@ static void gcwq_mayday_timeout(unsigned long __pool)
 		 * rescuers.
 		 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 		list_for_each_entry(work, &gcwq->worklist, entry)
+=======
+		list_for_each_entry(work, &pool->worklist, entry)
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 		list_for_each_entry(work, &pool->worklist, entry)
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1617,7 +1694,11 @@ static void gcwq_mayday_timeout(unsigned long __pool)
 	spin_unlock_irq(&gcwq->lock);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	mod_timer(&gcwq->mayday_timer, jiffies + MAYDAY_INTERVAL);
+=======
+	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INTERVAL);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INTERVAL);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1658,7 +1739,11 @@ restart:
 
 	/* if we don't make progress in MAYDAY_INITIAL_TIMEOUT, call for help */
 <<<<<<< HEAD
+<<<<<<< HEAD
 	mod_timer(&gcwq->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
+=======
+	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1669,7 +1754,11 @@ restart:
 		worker = create_worker(pool, true);
 		if (worker) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			del_timer_sync(&gcwq->mayday_timer);
+=======
+			del_timer_sync(&pool->mayday_timer);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 			del_timer_sync(&pool->mayday_timer);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1690,7 +1779,11 @@ restart:
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	del_timer_sync(&gcwq->mayday_timer);
+=======
+	del_timer_sync(&pool->mayday_timer);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	del_timer_sync(&pool->mayday_timer);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -1724,17 +1817,23 @@ static bool maybe_destroy_workers(struct worker_pool *pool)
 		unsigned long expires;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		worker = list_entry(gcwq->idle_list.prev, struct worker, entry);
 		expires = worker->last_active + IDLE_WORKER_TIMEOUT;
 
 		if (time_before(jiffies, expires)) {
 			mod_timer(&gcwq->idle_timer, expires);
 =======
+=======
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 		worker = list_entry(pool->idle_list.prev, struct worker, entry);
 		expires = worker->last_active + IDLE_WORKER_TIMEOUT;
 
 		if (time_before(jiffies, expires)) {
 			mod_timer(&pool->idle_timer, expires);
+<<<<<<< HEAD
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
+=======
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 			break;
 		}
@@ -1769,7 +1868,12 @@ static bool maybe_destroy_workers(struct worker_pool *pool)
 static bool manage_workers(struct worker *worker)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	struct global_cwq *gcwq = worker->gcwq;
+=======
+	struct worker_pool *pool = worker->pool;
+	struct global_cwq *gcwq = pool->gcwq;
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	struct worker_pool *pool = worker->pool;
 	struct global_cwq *gcwq = pool->gcwq;
@@ -1847,7 +1951,11 @@ static void cwq_activate_first_delayed(struct cpu_workqueue_struct *cwq)
 	struct work_struct *work = list_first_entry(&cwq->delayed_works,
 						    struct work_struct, entry);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	struct list_head *pos = gcwq_determine_ins_pos(cwq->gcwq, cwq);
+=======
+	struct list_head *pos = pool_determine_ins_pos(cwq->pool, cwq);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 	struct list_head *pos = pool_determine_ins_pos(cwq->pool, cwq);
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
@@ -3646,8 +3754,13 @@ static int __devinit workqueue_cpu_callback(struct notifier_block *nfb,
 		/* fall through */
 	case CPU_UP_PREPARE:
 <<<<<<< HEAD
+<<<<<<< HEAD
 		BUG_ON(gcwq->first_idle);
 		new_worker = create_worker(gcwq, false);
+=======
+		BUG_ON(gcwq->pool.first_idle);
+		new_worker = create_worker(&gcwq->pool, false);
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 =======
 		BUG_ON(gcwq->pool.first_idle);
 		new_worker = create_worker(&gcwq->pool, false);
@@ -3944,6 +4057,9 @@ static int __init init_workqueues(void)
 
 		setup_timer(&gcwq->pool.mayday_timer, gcwq_mayday_timeout,
 			    (unsigned long)&gcwq->pool);
+<<<<<<< HEAD
+>>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
+=======
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 
 		ida_init(&gcwq->worker_ida);
