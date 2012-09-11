@@ -386,7 +386,6 @@ int do_settimeofday(const struct timespec *tv)
 	unsigned long flags;
 
 	if (!timespec_valid_strict(tv))
-
 		return -EINVAL;
 
 	write_seqlock_irqsave(&timekeeper.lock, flags);
@@ -434,7 +433,6 @@ int timekeeping_inject_offset(struct timespec *ts)
 	tmp = timespec_add(timekeeper.xtime,  *ts);
 
 	if (!timespec_valid_strict(&tmp)) {
-
 		ret = -EINVAL;
 		goto error;
 	}
@@ -613,7 +611,6 @@ void __init timekeeping_init(void)
 	read_persistent_clock(&now);
 
 	if (!timespec_valid_strict(&now)) {
-
 		pr_warn("WARNING: Persistent clock returned invalid value!\n"
 			"         Check your CMOS/BIOS settings.\n");
 		now.tv_sec = 0;
@@ -623,7 +620,6 @@ void __init timekeeping_init(void)
 	read_boot_clock(&boot);
 
 	if (!timespec_valid_strict(&boot)) {
-
 		pr_warn("WARNING: Boot clock returned invalid value!\n"
 			"         Check your CMOS/BIOS settings.\n");
 		boot.tv_sec = 0;
