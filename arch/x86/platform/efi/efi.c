@@ -87,7 +87,11 @@ EXPORT_SYMBOL(efi_enabled);
 static bool disable_runtime = false;
 static int __init setup_noefi(char *arg)
 {
+<<<<<<< HEAD
 	disable_runtime = true;
+=======
+	clear_bit(EFI_BOOT, &x86_efi_facility);
+>>>>>>> c6c6698... efi: Make 'efi_enabled' a function to query EFI facilities
 	return 0;
 }
 early_param("noefi", setup_noefi);
@@ -734,7 +738,11 @@ void __init efi_init(void)
 	if (!efi_is_native())
 		pr_info("No EFI runtime due to 32/64-bit mismatch with kernel\n");
 	else {
+<<<<<<< HEAD
 		if (disable_runtime || efi_runtime_init())
+=======
+		if (efi_runtime_init())
+>>>>>>> c6c6698... efi: Make 'efi_enabled' a function to query EFI facilities
 			return;
 		set_bit(EFI_RUNTIME_SERVICES, &x86_efi_facility);
 	}
