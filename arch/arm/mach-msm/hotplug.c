@@ -31,9 +31,6 @@ static DEFINE_PER_CPU(unsigned int, warm_boot_flag);
 
 static cpumask_t cpu_dying_mask;
 
-static DEFINE_PER_CPU_SHARED_ALIGNED(struct msm_hotplug_device,
-			msm_hotplug_devices);
-
 static inline void cpu_enter_lowpower(void)
 {
 	/* Just flush the cache. Changing the coherency is not yet
@@ -199,12 +196,6 @@ int msm_platform_secondary_init(unsigned int cpu)
 
 static int __init init_hotplug(void)
 {
-	int rc;
-
-	rc = register_hotcpu_notifier(&hotplug_rtb_notifier);
-	if (rc)
-		return rc;
-
-	return register_hotcpu_notifier(&hotplug_cpu_check_notifier);
+	return register_hotcpu_notifier(&hotplug_rtb_notifier);
 }
 early_initcall(init_hotplug);
