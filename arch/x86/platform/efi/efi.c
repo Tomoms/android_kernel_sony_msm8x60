@@ -88,10 +88,14 @@ static bool disable_runtime = false;
 static int __init setup_noefi(char *arg)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	disable_runtime = true;
 =======
 	clear_bit(EFI_BOOT, &x86_efi_facility);
 >>>>>>> c6c6698... efi: Make 'efi_enabled' a function to query EFI facilities
+=======
+	clear_bit(EFI_RUNTIME_SERVICES, &x86_efi_facility);
+>>>>>>> 9a16d87... efi: Clear EFI_RUNTIME_SERVICES rather than EFI_BOOT by "noefi" boot parameter
 	return 0;
 }
 early_param("noefi", setup_noefi);
