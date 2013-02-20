@@ -89,6 +89,7 @@ static int __init setup_noefi(char *arg)
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	disable_runtime = true;
 =======
 	clear_bit(EFI_BOOT, &x86_efi_facility);
@@ -96,6 +97,9 @@ static int __init setup_noefi(char *arg)
 =======
 	clear_bit(EFI_RUNTIME_SERVICES, &x86_efi_facility);
 >>>>>>> 9a16d87... efi: Clear EFI_RUNTIME_SERVICES rather than EFI_BOOT by "noefi" boot parameter
+=======
+	disable_runtime = true;
+>>>>>>> b388eb2... x86, efi: Make "noefi" really disable EFI runtime serivces
 	return 0;
 }
 early_param("noefi", setup_noefi);
@@ -743,10 +747,14 @@ void __init efi_init(void)
 		pr_info("No EFI runtime due to 32/64-bit mismatch with kernel\n");
 	else {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (disable_runtime || efi_runtime_init())
 =======
 		if (efi_runtime_init())
 >>>>>>> c6c6698... efi: Make 'efi_enabled' a function to query EFI facilities
+=======
+		if (disable_runtime || efi_runtime_init())
+>>>>>>> b388eb2... x86, efi: Make "noefi" really disable EFI runtime serivces
 			return;
 		set_bit(EFI_RUNTIME_SERVICES, &x86_efi_facility);
 	}
