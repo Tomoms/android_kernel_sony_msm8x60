@@ -12,8 +12,8 @@
 #include <linux/smp.h>
 #include <linux/cpu.h>
 #include <linux/ratelimit.h>
+#include <linux/notifier.h>
 
-#include <asm/cacheflush.h>
 #include <asm/smp_plat.h>
 #include <asm/vfp.h>
 
@@ -33,9 +33,6 @@ static cpumask_t cpu_dying_mask;
 
 static inline void cpu_enter_lowpower(void)
 {
-	/* Just flush the cache. Changing the coherency is not yet
-	 * available on msm. */
-	flush_cache_all();
 }
 
 static inline void cpu_leave_lowpower(void)
