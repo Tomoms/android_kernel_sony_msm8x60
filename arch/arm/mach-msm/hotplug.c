@@ -29,6 +29,11 @@ static cpumask_t cpu_dying_mask;
 
 static DEFINE_PER_CPU(unsigned int, warm_boot_flag);
 
+static cpumask_t cpu_dying_mask;
+
+static DEFINE_PER_CPU_SHARED_ALIGNED(struct msm_hotplug_device,
+			msm_hotplug_devices);
+
 static inline void cpu_enter_lowpower(void)
 {
 	/* Just flush the cache. Changing the coherency is not yet
