@@ -18,7 +18,6 @@
 #include <linux/vmalloc.h>
 #include <linux/rbtree.h>
 #include <linux/slab.h>
-#include <linux/vmalloc.h>
 #include <linux/idr.h>
 #include <linux/err.h>
 #include <asm/sizes.h>
