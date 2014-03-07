@@ -1823,11 +1823,14 @@ typedef enum
 #define CFG_AMSDU_SUPPORT_IN_AMPDU_MAX                 (1)
 #define CFG_AMSDU_SUPPORT_IN_AMPDU_DEFAULT             (0) //disabled
 
+<<<<<<< HEAD
 #define CFG_ROAMING_DFS_CHANNEL_NAME                "gAllowDFSChannelRoam"
 #define CFG_ROAMING_DFS_CHANNEL_MIN                 (0)
 #define CFG_ROAMING_DFS_CHANNEL_MAX                 (1)
 #define CFG_ROAMING_DFS_CHANNEL_DEFAULT             (0)
 
+=======
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 /*---------------------------------------------------------------------------
   Type declarations
   -------------------------------------------------------------------------*/
@@ -2218,7 +2221,10 @@ v_U16_t                     configMccParam;
    v_U32_t                     trafficMntrTmrForSplitScan;
    v_BOOL_t                    debugP2pRemainOnChannel;
    v_U8_t                      isAmsduSupportInAMPDU;
+<<<<<<< HEAD
    v_U8_t                      allowDFSChannelRoam;
+=======
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 } hdd_config_t;
 /*--------------------------------------------------------------------------- 
   Function declarations and documenation

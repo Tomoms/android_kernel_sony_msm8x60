@@ -2343,11 +2343,14 @@ eHalStatus sme_RoamConnect(tHalHandle hHal, tANI_U8 sessionId, tCsrRoamProfile *
     eHalStatus status = eHAL_STATUS_FAILURE;
     tpAniSirGlobal pMac = PMAC_STRUCT( hHal );
 
+<<<<<<< HEAD
     if (!pMac)
     {
         return eHAL_STATUS_FAILURE;
     }
 
+=======
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
     MTRACE(vos_trace(VOS_MODULE_ID_SME,
                    TRACE_CODE_SME_RX_HDD_MSG_CONNECT, sessionId, 0));
     smsLog(pMac, LOG2, FL("enter"));

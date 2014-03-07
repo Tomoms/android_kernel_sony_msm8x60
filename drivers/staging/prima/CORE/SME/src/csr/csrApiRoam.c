@@ -1602,7 +1602,10 @@ eHalStatus csrChangeDefaultConfigParam(tpAniSirGlobal pMac, tCsrConfigParam *pPa
         pMac->roam.configParam.txLdpcEnable = pParam->enableTxLdpc;
 
         pMac->roam.configParam.isAmsduSupportInAMPDU = pParam->isAmsduSupportInAMPDU;
+<<<<<<< HEAD
         pMac->roam.configParam.allowDFSChannelRoam = pParam->allowDFSChannelRoam;
+=======
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
     }
     
     return status;
@@ -1691,8 +1694,12 @@ eHalStatus csrGetConfigParam(tpAniSirGlobal pMac, tCsrConfigParam *pParam)
 
         pParam->isAmsduSupportInAMPDU =
                       pMac->roam.configParam.isAmsduSupportInAMPDU;
+<<<<<<< HEAD
         pParam->allowDFSChannelRoam =
                                     pMac->roam.configParam.allowDFSChannelRoam;
+=======
+
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
         csrSetChannels(pMac, pParam);
 
         status = eHAL_STATUS_SUCCESS;
@@ -14907,8 +14914,12 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
           ChannelList = currChannelListInfo->ChannelList;
           for (i=0;i<currChannelListInfo->numOfChannels;i++)
           {
+<<<<<<< HEAD
            if(((pMac->roam.configParam.allowDFSChannelRoam) ||
                 (!CSR_IS_CHANNEL_DFS(*ChannelList))) && *ChannelList)
+=======
+           if(!CSR_IS_CHANNEL_DFS(*ChannelList) && *ChannelList)
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
            {
             pRequestBuf->ConnectedNetwork.ChannelCache[num_channels++] = *ChannelList;
            }

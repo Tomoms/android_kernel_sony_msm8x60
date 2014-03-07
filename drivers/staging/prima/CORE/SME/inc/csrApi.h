@@ -1116,8 +1116,11 @@ typedef struct tagCsrConfigParam
     tANI_U8   enableTxLdpc;
 
     tANI_U8 isAmsduSupportInAMPDU;
+<<<<<<< HEAD
     tANI_U8 allowDFSChannelRoam;
 
+=======
+>>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 }tCsrConfigParam;
 
 //Tush
