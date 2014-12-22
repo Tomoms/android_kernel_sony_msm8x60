@@ -80,6 +80,10 @@
 #include <asm/smp.h>
 #endif
 
+#ifdef CONFIG_BOOT_TIME_MARKER
+#include <mach/board.h>
+#endif
+
 static int kernel_init(void *);
 
 extern void init_IRQ(void);
@@ -635,6 +639,9 @@ asmlinkage void __init start_kernel(void)
 	if (efi_enabled(EFI_RUNTIME_SERVICES))
 		efi_free_boot_services();
 
+#ifdef CONFIG_BOOT_TIME_MARKER
+	init_marker_proc_fs();
+#endif
 	ftrace_init();
 
 	/* Do the rest non-__init'ed, we're now alive */
