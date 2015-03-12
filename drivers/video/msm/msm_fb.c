@@ -414,7 +414,6 @@ static ssize_t mdp_set_rgb(struct device *dev,
 	return -EINVAL;
 }
 
-
 static DEVICE_ATTR(msm_fb_type, S_IRUGO, msm_fb_msm_fb_type, NULL);
 static DEVICE_ATTR(msm_fb_fps_level, S_IRUGO | S_IWUSR | S_IWGRP, NULL, \
 				msm_fb_fps_level_change);
