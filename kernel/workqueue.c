@@ -577,8 +577,13 @@ static struct global_cwq *get_work_gcwq(struct work_struct *work)
 static bool __need_more_worker(struct global_cwq *gcwq)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return !atomic_read(get_pool_nr_running(pool)) ||
 		pool->gcwq->flags & GCWQ_HIGHPRI_PENDING;
+=======
+	return !atomic_read(get_gcwq_nr_running(gcwq->cpu)) ||
+		gcwq->flags & GCWQ_HIGHPRI_PENDING;
+>>>>>>> 03fed86... Fix conflict
 =======
 	return !atomic_read(get_gcwq_nr_running(gcwq->cpu)) ||
 		gcwq->flags & GCWQ_HIGHPRI_PENDING;
@@ -632,7 +637,11 @@ static bool keep_working(struct global_cwq *gcwq)
 >>>>>>> 717fb93... workqueue: use @pool instead of @gcwq or @cpu where applicable
 		(atomic_read(nr_running) <= 1 ||
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 pool->gcwq->flags & GCWQ_HIGHPRI_PENDING);
+=======
+		 gcwq->flags & GCWQ_HIGHPRI_PENDING);
+>>>>>>> 03fed86... Fix conflict
 =======
 		 gcwq->flags & GCWQ_HIGHPRI_PENDING);
 >>>>>>> 03fed86... Fix conflict
@@ -648,8 +657,12 @@ static bool need_to_create_worker(struct global_cwq *gcwq)
 static bool need_to_manage_workers(struct global_cwq *gcwq)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return need_to_create_worker(pool) ||
 		pool->gcwq->flags & GCWQ_MANAGE_WORKERS;
+=======
+	return need_to_create_worker(gcwq) || gcwq->flags & GCWQ_MANAGE_WORKERS;
+>>>>>>> 03fed86... Fix conflict
 =======
 	return need_to_create_worker(gcwq) || gcwq->flags & GCWQ_MANAGE_WORKERS;
 >>>>>>> 03fed86... Fix conflict
@@ -988,7 +1001,11 @@ static struct worker *find_worker_executing_work(struct global_cwq *gcwq,
  * queued at the head of the queue but in FIFO order with respect to
  * other HIGHPRI works; otherwise, at the end of the queue.  This
 <<<<<<< HEAD
+<<<<<<< HEAD
  * function also sets GCWQ_HIGHPRI_PENDING flag to hint @pool that
+=======
+ * function also sets GCWQ_HIGHPRI_PENDING flag to hint @gcwq that
+>>>>>>> 03fed86... Fix conflict
 =======
  * function also sets GCWQ_HIGHPRI_PENDING flag to hint @gcwq that
 >>>>>>> 03fed86... Fix conflict
@@ -1028,7 +1045,11 @@ static inline struct list_head *gcwq_determine_ins_pos(struct global_cwq *gcwq,
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	pool->gcwq->flags |= GCWQ_HIGHPRI_PENDING;
+=======
+	gcwq->flags |= GCWQ_HIGHPRI_PENDING;
+>>>>>>> 03fed86... Fix conflict
 =======
 	gcwq->flags |= GCWQ_HIGHPRI_PENDING;
 >>>>>>> 03fed86... Fix conflict
@@ -1656,7 +1677,11 @@ static void idle_worker_timeout(unsigned long __gcwq)
 			/* it's been idle for too long, wake up manager */
 			gcwq->flags |= GCWQ_MANAGE_WORKERS;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			wake_up_worker(pool);
+=======
+			wake_up_worker(gcwq);
+>>>>>>> 03fed86... Fix conflict
 =======
 			wake_up_worker(gcwq);
 >>>>>>> 03fed86... Fix conflict
