@@ -1608,6 +1608,12 @@ config CPU_VOLTAGE_TABLE
 	help
 	  Krait User Votlage Control
 
+config OVERCLOCK
+	bool "Allow overclock"
+	default n
+	help
+		Unlock underclocking and overclocking
+
 if CPU_FREQ_MSM
 
 config MSM_CPU_FREQ_SET_MIN_MAX
