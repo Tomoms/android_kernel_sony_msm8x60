@@ -86,23 +86,12 @@ cifs_readdir_lookup(struct dentry *parent, struct qstr *name,
 
 	dentry = d_lookup(parent, name);
 	if (dentry) {
-		inode = dentry->d_inode;
-		/* update inode in place if i_ino didn't change */
-		if (inode && CIFS_I(inode)->uniqueid == fattr->cf_uniqueid) {
-			cifs_fattr_to_inode(inode, fattr);
+		/* FIXME: check for inode number changes? */
+		if (dentry->d_inode != NULL)
 			return dentry;
-		}
 		d_drop(dentry);
 		dput(dentry);
 	}
-
-	/*
-	 * If we know that the inode will need to be revalidated immediately,
-	 * then don't create a new dentry for it. We'll end up doing an on
-	 * the wire call either way and this spares us an invalidation.
-	 */
-	if (fattr->cf_flags & CIFS_FATTR_NEED_REVAL)
-		return NULL;
 
 	dentry = d_alloc(parent, name);
 	if (dentry == NULL)
@@ -449,7 +438,6 @@ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
 /* return 0 if no match and 1 for . (current directory) and 2 for .. (parent) */
 static int cifs_entry_is_dot(struct cifs_dirent *de, bool is_unicode)
 {
-	__u16 search_flags;
 	int rc = 0;
 
 	if (!de->name)

@@ -29,9 +29,7 @@
 #include "drmP.h"
 #include "ttm/ttm_bo_driver.h"
 
-#define VMW_PPN_SIZE (sizeof(unsigned long))
-/* A future safe maximum remap size. */
-#define VMW_PPN_PER_REMAP ((31 * 1024) / VMW_PPN_SIZE)
+#define VMW_PPN_SIZE sizeof(unsigned long)
 
 static int vmw_gmr2_bind(struct vmw_private *dev_priv,
 			 struct page *pages[],

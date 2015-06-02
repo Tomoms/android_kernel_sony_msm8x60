@@ -596,6 +596,7 @@ static int mxc_nand_correct_data_v2_v3(struct mtd_info *mtd, u_char *dat,
 		ecc_stat >>= 4;
 	} while (--no_subpages);
 
+	mtd->ecc_stats.corrected += ret;
 	pr_debug("%d Symbol Correctable RS-ECC Error\n", ret);
 
 	return ret;
@@ -1223,12 +1224,6 @@ static int __init mxcnd_probe(struct platform_device *pdev)
 			this->ecc.strength = 1;
 		else
 			this->ecc.strength = (host->eccsize == 4) ? 4 : 8;
-	}
-
-	/* second phase scan */
-	if (nand_scan_tail(mtd)) {
-		err = -ENXIO;
-		goto escan;
 	}
 
 	/* second phase scan */
