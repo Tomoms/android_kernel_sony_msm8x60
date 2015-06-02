@@ -368,7 +368,7 @@ intel_dp_aux_ch(struct intel_dp *intel_dp,
 	int recv_bytes;
 	uint32_t status;
 	uint32_t aux_clock_divider;
-	int try, precharge = 5;
+	int try, precharge;
 
 	intel_dp_check_edp(intel_dp);
 	/* The clock divider is based off the hrawclk,
@@ -387,6 +387,11 @@ intel_dp_aux_ch(struct intel_dp *intel_dp,
 		aux_clock_divider = 63; /* IRL input clock fixed at 125Mhz */
 	else
 		aux_clock_divider = intel_hrawclk(dev) / 2;
+
+	if (IS_GEN6(dev))
+		precharge = 3;
+	else
+		precharge = 5;
 
 	/* Try to wait for any previous AUX channel activity */
 	for (try = 0; try < 3; try++) {
@@ -620,7 +625,18 @@ intel_dp_i2c_aux_ch(struct i2c_adapter *adapter, int mode,
 			DRM_DEBUG_KMS("aux_ch native nack\n");
 			return -EREMOTEIO;
 		case AUX_NATIVE_REPLY_DEFER:
-			udelay(100);
+			/*
+			 * For now, just give more slack to branch devices. We
+			 * could check the DPCD for I2C bit rate capabilities,
+			 * and if available, adjust the interval. We could also
+			 * be more careful with DP-to-Legacy adapters where a
+			 * long legacy cable may force very low I2C bit rates.
+			 */
+			if (intel_dp->dpcd[DP_DOWNSTREAMPORT_PRESENT] &
+			    DP_DWN_STRM_PORT_PRESENT)
+				usleep_range(500, 600);
+			else
+				usleep_range(300, 400);
 			continue;
 		default:
 			DRM_ERROR("aux_ch invalid native reply 0x%02x\n",
@@ -707,8 +723,8 @@ intel_dp_mode_fixup(struct drm_encoder *encoder, struct drm_display_mode *mode,
 
 	bpp = adjusted_mode->private_flags & INTEL_MODE_DP_FORCE_6BPC ? 18 : 24;
 
-	for (lane_count = 1; lane_count <= max_lane_count; lane_count <<= 1) {
-		for (clock = 0; clock <= max_clock; clock++) {
+	for (clock = 0; clock <= max_clock; clock++) {
+		for (lane_count = 1; lane_count <= max_lane_count; lane_count <<= 1) {
 			int link_avail = intel_dp_max_data_rate(intel_dp_link_clock(bws[clock]), lane_count);
 
 			if (intel_dp_link_required(mode->clock, bpp)
@@ -2273,11 +2289,6 @@ done:
 static void
 intel_dp_destroy(struct drm_connector *connector)
 {
-	struct drm_device *dev = connector->dev;
-
-	if (intel_dpd_is_edp(dev))
-		intel_panel_destroy_backlight(dev);
-
 	drm_sysfs_connector_remove(connector);
 	drm_connector_cleanup(connector);
 	kfree(connector);
