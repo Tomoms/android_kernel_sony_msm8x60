@@ -10,6 +10,7 @@
 # Normal rules
 #
 .*
+patch-3.4.*
 *.o
 *.o.*
 *.a
