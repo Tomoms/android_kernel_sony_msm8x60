@@ -40,7 +40,7 @@
 #include "avs.h"
 
 #ifdef CONFIG_OVERCLOCK
-#define OVERCLOCK_EXTRA_FREQS 7
+#define OVERCLOCK_EXTRA_FREQS 4
 #else
 #define OVERCLOCK_EXTRA_FREQS 0
 #endif
