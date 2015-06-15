@@ -16,7 +16,6 @@ patch-3.4.*
 *.a
 *.s
 *.ko
-*.rej
 *.so
 *.so.dbg
 *.mod.c
