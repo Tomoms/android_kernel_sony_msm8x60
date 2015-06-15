@@ -2,6 +2,8 @@
  * as3677.c - Led dimmer
  *
  * Version:
+ * 2015-06-09: v1.5 : - fix the adc_als_value register to prevent overflows
+ *                      and unproportionnal ALS values
  * 2011-12-23: v1.4 : - group check is sometimes too strict, disable it
  * 2011-12-15: v1.3 : - fixed pattern starting/stopping
  *                    - fixed step reduced ALS if dimming was used before
@@ -1884,7 +1886,7 @@ static ssize_t as3677_als_lx_show(struct device *dev,
 			AS3677_REG_ALS_result);
 	struct as3677_als_fsm_state *s = data->fsm + data->curr_state;
 
-	/* Start measuring GPIO2/LIGHT */
+	/* Start measuring ALS/GPIO1 */
 	AS3677_WRITE_REG(AS3677_REG_ADC_control, 0x82);
 	for (i = 0; i < 10; i++) {
 		adc_result = i2c_smbus_read_byte_data(data->client,
@@ -2163,9 +2165,9 @@ static ssize_t as3677_adc_als_value_show(struct device *dev,
 	s32 als_result, amb_gain, offset;
 	u32 adc_result;
 
-	/* Start measuring GPIO2/LIGHT */
+	/* Start measuring ALS/GPIO1 */
 	AS3677_LOCK();
-	AS3677_WRITE_REG(AS3677_REG_ADC_control, 0x80);
+	AS3677_WRITE_REG(AS3677_REG_ADC_control, 0x82);
 	for (i = 0; i < 10; i++) {
 		adc_result = i2c_smbus_read_byte_data(data->client,
 				AS3677_REG_ADC_MSB_result);
