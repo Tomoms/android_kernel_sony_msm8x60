@@ -158,7 +158,7 @@ struct lm3561_drv_data {
 	int torch_current_shift;
 	int flash_current_shift;
 	int strobe_trigger_shift;
-	bool on_duty;
+	int on_duty;
 	struct mutex lock;
 	struct lm3561_reg_shadow shadow[LM3561_REG_NUM];
 };
@@ -614,7 +614,7 @@ static ssize_t attr_torch_enable_store(struct device *dev,
 				__func__, enable);
 		return -EINVAL;
 	}
-	else {
+-	if (enable && data->on_duty == DUTY_ON_TORCH) {
 		dev_dbg(&data->client->dev, "%s: already enabled\n", __func__);
 		return size;
 	}
