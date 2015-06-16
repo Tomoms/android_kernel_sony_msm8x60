@@ -614,7 +614,7 @@ static ssize_t attr_torch_enable_store(struct device *dev,
 				__func__, enable);
 		return -EINVAL;
 	}
--	if (enable && data->on_duty == DUTY_ON_TORCH) {
+	if (enable && data->on_duty == DUTY_ON_TORCH) {
 		dev_dbg(&data->client->dev, "%s: already enabled\n", __func__);
 		return size;
 	}
