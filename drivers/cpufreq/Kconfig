@@ -162,18 +162,6 @@ config CPU_FREQ_DEFAULT_GOV_INTELLIMM
           Use the CPUFreq governor 'intelliminmax' as default. This is
           governor will use only 3 different frequencies, idle, UI and max
 
-config CPU_FREQ_DEFAULT_GOV_SMARTASSH3
-	bool "smartassH3"
-	select CPU_FREQ_GOV_SMARTASSH3
-	help
-		Use the CPUFreq governor 'SmartassH3' as default.
-
-config CPU_FREQ_DEFAULT_GOV_ABYSSPLUG
-	bool "abyssplug"
-	select CPU_FREQ_GOV_ABYSSPLUG
-	help
-		Use the CPUFreq governor 'abyssplug' as default.
-
 config CPU_FREQ_DEFAULT_GOV_BRAZILIANWAX
 	bool "brazilianwax"
 	select CPU_FREQ_GOV_BRAZILIANWAX
@@ -416,22 +404,6 @@ config CPU_FREQ_GOV_INTELLIMM
           For details, take a look at linux/Documentation/cpu-freq.
 
           If in doubt, say N.
-
-config CPU_FREQ_GOV_SMARTASSH3
-	tristate "'SmartassH3' cpufreq governor"
-	depends on CPU_FREQ
-	help
-          'SmartassH3' - a "smartassV2 with tweaks by H3ROS" governor.
-
-          If in doubt, say N.
-
-config CPU_FREQ_GOV_ABYSSPLUG
-	tristate "'abyssplug' cpufreq governor"
-	depends on CPU_FREQ
-	help
-	  'abyssplug' governor.
-
-	  If in doubt, say N.
 
 config CPU_FREQ_GOV_BRAZILIANWAX
 	tristate "'brazilianwax' cpufreq governor"
