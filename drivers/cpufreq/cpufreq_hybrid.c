@@ -60,9 +60,6 @@
 #define CPU_UP_BOUND            (100)
 #define CPU_DOWN_AVG_TIMES      (50)
 
-#define DEFAULT_IO_IS_BUSY 0
-static unsigned int io_is_busy;
-
 //#define DEBUG_LOG
 
 /*
@@ -220,7 +217,7 @@ static inline u64 get_cpu_idle_time_jiffy(unsigned int cpu, u64 *wall)
 	return jiffies_to_usecs(idle_time);
 }
 
-u64 get_cpu_idle_time(unsigned int cpu, u64 *wall, int io_is_busy)
+static inline cputime64_t get_cpu_idle_time(unsigned int cpu, cputime64_t *wall)
 {
 	u64 idle_time = get_cpu_idle_time_us(cpu, NULL);
 
@@ -338,6 +335,7 @@ static ssize_t show_##file_name						\
 }
 
 show_one_unsigned(sampling_rate, sampling_rate);
+show_one_unsigned(io_is_busy, io_is_busy);
 show_one_unsigned(up_threshold, up_threshold);
 show_one_unsigned(down_differential, down_differential);
 show_one_unsigned(sampling_down_factor, sampling_down_factor);
@@ -425,6 +423,19 @@ static ssize_t store_sampling_rate(struct kobject *a, struct attribute *b,
 	return count;
 }
 
+static ssize_t store_io_is_busy(struct kobject *a, struct attribute *b,
+				   const char *buf, size_t count)
+{
+	unsigned int input;
+	int ret;
+
+	ret = sscanf(buf, "%u", &input);
+	if (ret != 1)
+		return -EINVAL;
+	dbs_tuners_ins.io_is_busy = !!input;
+	return count;
+}
+
 static ssize_t store_up_threshold(struct kobject *a, struct attribute *b,
 				  const char *buf, size_t count)
 {
@@ -500,7 +511,7 @@ static ssize_t store_ignore_nice_load(struct kobject *a, struct attribute *b,
 		struct cpu_dbs_info_s *dbs_info;
 		dbs_info = &per_cpu(hb_cpu_dbs_info, j);
 		dbs_info->prev_cpu_idle = get_cpu_idle_time(j,
-						&dbs_info->prev_cpu_wall, io_is_busy);
+						&dbs_info->prev_cpu_wall);
 		if (dbs_tuners_ins.ignore_nice)
 			dbs_info->prev_cpu_nice = kcpustat_cpu(j).cpustat[CPUTIME_NICE];
 
@@ -675,6 +686,7 @@ static ssize_t store_cpu_down_avg_times(struct kobject *a, struct attribute *b,
 }
 
 define_one_global_rw(sampling_rate);
+define_one_global_rw(io_is_busy);
 define_one_global_rw(up_threshold);
 define_one_global_rw(down_differential);
 define_one_global_rw(sampling_down_factor);
@@ -702,6 +714,7 @@ static struct attribute *dbs_attributes[] = {
     &sampling_down_factor.attr,
     &ignore_nice_load.attr,
     &powersave_bias.attr,
+    &io_is_busy.attr,
     &cpu_down_threshold.attr,
     &load_critical_grade.attr,
     &load_high_grade.attr,
@@ -838,7 +851,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 
 		j_dbs_info = &per_cpu(hb_cpu_dbs_info, j);
 
-		cur_idle_time = get_cpu_idle_time(j, &cur_wall_time, io_is_busy);
+		cur_idle_time = get_cpu_idle_time(j, &cur_wall_time);
 		cur_iowait_time = get_cpu_iowait_time(j, &cur_wall_time);
 
 		wall_time = (unsigned int)
@@ -1053,7 +1066,7 @@ static inline void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
 		delay -= jiffies % delay;
 
 	dbs_info->sample_type = DBS_NORMAL_SAMPLE;
-	INIT_DEFERRABLE_WORK(&dbs_info->work, do_dbs_timer);
+	INIT_DELAYED_WORK_DEFERRABLE(&dbs_info->work, do_dbs_timer);
 	schedule_delayed_work_on(dbs_info->cpu, &dbs_info->work, delay);
 }
 
@@ -1109,7 +1122,7 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 			j_dbs_info->cur_policy = policy;
 
 			j_dbs_info->prev_cpu_idle = get_cpu_idle_time(j,
-						&j_dbs_info->prev_cpu_wall, io_is_busy);
+						&j_dbs_info->prev_cpu_wall);
 			if (dbs_tuners_ins.ignore_nice)
 				j_dbs_info->prev_cpu_nice =
 						kcpustat_cpu(j).cpustat[CPUTIME_NICE];
@@ -1217,7 +1230,7 @@ static int __init cpufreq_gov_dbs_init(void)
 	g_limit_cpu_num = g_available_cpu_num = num_possible_cpus();
 
 	#ifdef CONFIG_SMP
-	INIT_DEFERRABLE_WORK(&hp_work, hp_work_handler);
+	INIT_DELAYED_WORK_DEFERRABLE(&hp_work, hp_work_handler);
 	#endif
 
 	#ifdef DEBUG_LOG

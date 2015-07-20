@@ -46,9 +46,6 @@ static unsigned int min_sampling_rate;
 #define MAX_SAMPLING_DOWN_FACTOR		(10)
 #define TRANSITION_LATENCY_LIMIT		(10 * 1000 * 1000)
 
-#define DEFAULT_IO_IS_BUSY 0
-static unsigned int io_is_busy;
-
 static void do_dbs_timer(struct work_struct *work);
 
 struct cpu_dbs_info_s {
@@ -108,7 +105,7 @@ static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
 	return (cputime64_t)jiffies_to_usecs(idle_time);
 }
 
-u64 get_cpu_idle_time(unsigned int cpu, cputime64_t *wall, int io_is_busy)
+static inline cputime64_t get_cpu_idle_time(unsigned int cpu, cputime64_t *wall)
 {
 	u64 idle_time = get_cpu_idle_time_us(cpu, wall);
 
@@ -249,7 +246,7 @@ static ssize_t store_ignore_nice_load(struct kobject *a, struct attribute *b,
 		struct cpu_dbs_info_s *dbs_info;
 		dbs_info = &per_cpu(cs_cpu_dbs_info, j);
 		dbs_info->prev_cpu_idle = get_cpu_idle_time(j,
-						&dbs_info->prev_cpu_wall, io_is_busy);
+						&dbs_info->prev_cpu_wall);
 		if (dbs_tuners_ins.ignore_nice)
 			dbs_info->prev_cpu_nice = kcpustat_cpu(j).cpustat[CPUTIME_NICE];
 	}
@@ -314,7 +311,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 
 		j_dbs_info = &per_cpu(cs_cpu_dbs_info, j);
 
-		cur_idle_time = get_cpu_idle_time(j, &cur_wall_time, io_is_busy);
+		cur_idle_time = get_cpu_idle_time(j, &cur_wall_time);
 
 		wall_time = (unsigned int) cputime64_sub(cur_wall_time,
 				j_dbs_info->prev_cpu_wall);
@@ -411,7 +408,7 @@ static inline void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
 	// delay -= jiffies % delay;
 
 	dbs_info->enable = 1;
-	INIT_DEFERRABLE_WORK(&dbs_info->work, do_dbs_timer);
+	INIT_DELAYED_WORK_DEFERRABLE(&dbs_info->work, do_dbs_timer);
 	schedule_delayed_work_on(dbs_info->cpu, &dbs_info->work, delay);
 }
 
@@ -444,7 +441,7 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 			j_dbs_info->cur_policy = policy;
 
 			j_dbs_info->prev_cpu_idle = get_cpu_idle_time(j,
-						&j_dbs_info->prev_cpu_wall, io_is_busy);
+						&j_dbs_info->prev_cpu_wall);
 			if (dbs_tuners_ins.ignore_nice) {
 				j_dbs_info->prev_cpu_nice =
 						kcpustat_cpu(j).cpustat[CPUTIME_NICE];
