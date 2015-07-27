@@ -579,12 +579,12 @@ unlock:
  * idle CPU then this timer might expire before the next timer event
  * which is scheduled to wake up that CPU. In case of a completely
  * idle system the next event might even be infinite time into the
- * future. wake_up_nohz_cpu() ensures that the CPU is woken up and
+ * future. wake_up_idle_cpu() ensures that the CPU is woken up and
  * leaves the inner idle loop so the newly added timer is taken into
  * account when the CPU goes back to idle and evaluates the timer
  * wheel for the next timer event.
  */
-void wake_up_nohz_cpu(int cpu)
+void wake_up_idle_cpu(int cpu)
 {
 	struct rq *rq = cpu_rq(cpu);
 
