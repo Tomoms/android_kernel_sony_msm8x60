@@ -1268,7 +1268,7 @@ static void mhl_sii_shutdown(struct i2c_client *client)
 #ifdef CONFIG_PM
 static int mhl_sii_i2c_suspend(struct device *dev)
 {
-	flush_work_sync(&mhl_state->timer_work);
+	flush_work(&mhl_state->timer_work);
 
 	/* enable_irq_wake to setup this irq for wakeup trigger */
 	enable_irq_wake(mhl_state->irq);

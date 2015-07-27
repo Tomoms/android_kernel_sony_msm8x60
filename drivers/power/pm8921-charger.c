@@ -5593,8 +5593,8 @@ static int pm8921_charger_suspend(struct device *dev)
 {
 	struct pm8921_chg_chip *chip = dev_get_drvdata(dev);
 
-	if (flush_delayed_work_sync(&chip->vin_collapse_check_work) ||
-		flush_delayed_work_sync(&chip->chg_plug_debounce.work)) {
+	if (flush_delayed_work(&chip->vin_collapse_check_work) ||
+		flush_delayed_work(&chip->chg_plug_debounce.work)) {
 		/* Events are guaranteed to be sent with flush but since
 		 * user-land is already in suspend we have to return an error
 		 * code here to stop the suspend chain which will resume the
