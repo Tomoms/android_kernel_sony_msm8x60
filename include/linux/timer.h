@@ -192,7 +192,6 @@ extern void set_timer_slack(struct timer_list *time, int slack_hz);
  * locks the timer base and does the comparison against the given
  * jiffie.
  */
-
 extern unsigned long get_next_timer_interrupt(unsigned long now);
 
 /*

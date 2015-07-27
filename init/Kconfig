@@ -202,14 +202,18 @@ config KERNEL_LZO
 	help
 	  Its compression ratio is the poorest among the 4. The kernel
 	  size is about 10% bigger than gzip; however its speed
-	  (both compression and decompression) is the second fastest.
+	  (both compression and decompression) is the fastest.
 
 config KERNEL_LZ4
 	bool "LZ4"
 	depends on HAVE_KERNEL_LZ4
 	help
 	  Its compression ratio is worse than LZO. The size of the kernel
+<<<<<<< HEAD
+	  is about 8% bigger than LZO. But the decompression speed is
+=======
 	  is about 8% bigger than LZO, But the decompression speed is
+>>>>>>> parent of f81a82a... Revert "WIP: CPU and workqueue updates"
 	  faster than LZO.
 
 endchoice

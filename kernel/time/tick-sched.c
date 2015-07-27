@@ -14,7 +14,6 @@
 #include <linux/cpu.h>
 #include <linux/err.h>
 #include <linux/hrtimer.h>
-#include <linux/timer.h>
 #include <linux/interrupt.h>
 #include <linux/kernel_stat.h>
 #include <linux/percpu.h>
@@ -48,7 +47,7 @@ struct tick_sched *tick_get_tick_sched(int cpu)
 }
 
 /*
- * Must be called with interrupts disabled!
+ * Must be called with interrupts disabled !
  */
 static void tick_do_update_jiffies64(ktime_t now)
 {

@@ -723,7 +723,7 @@ static void cyttsp4_queue_startup(struct cyttsp4_core_data *cd)
 void cyttsp4_queue_startup_and_wait(struct cyttsp4_core_data *cd)
 {
 	/* Check if there is a pending startup request */
-	if (flush_work(&cd->startup_work)) {
+	if (flush_work_sync(&cd->startup_work)) {
 		dev_vdbg(cd->dev, "%s: Work pending 1\n", __func__);
 		return;
 	}
@@ -731,7 +731,7 @@ void cyttsp4_queue_startup_and_wait(struct cyttsp4_core_data *cd)
 	/* Queue one and wait until it finishes */
 	cyttsp4_queue_startup(cd);
 
-	flush_work(&cd->startup_work);
+	flush_work_sync(&cd->startup_work);
 	dev_vdbg(cd->dev, "%s: Work pending 2\n", __func__);
 }
 

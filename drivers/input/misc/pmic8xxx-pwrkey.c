@@ -77,7 +77,8 @@ static irqreturn_t pwrkey_press_irq(int irq, void *_pwrkey)
 
 	if (atomic_cmpxchg(&pwrkey->press, false, true) != false) {
 		dev_warn(pwrkey->pwr->dev.parent, "unexpected key press\n");
-		mod_delayed_work(system_wq, &pwrkey->confirm_work, CHECK_DELAY);
+		__cancel_delayed_work(&pwrkey->confirm_work);
+		schedule_delayed_work(&pwrkey->confirm_work, CHECK_DELAY);
 	}
 
 #ifdef CONFIG_PMIC8XXX_FORCECRASH
@@ -95,7 +96,8 @@ static irqreturn_t pwrkey_release_irq(int irq, void *_pwrkey)
 
 	if (atomic_cmpxchg(&pwrkey->press, true, false) != true) {
 		dev_warn(pwrkey->pwr->dev.parent, "unexpected key release\n");
-		mod_delayed_work(system_wq, &pwrkey->confirm_work, CHECK_DELAY);
+		__cancel_delayed_work(&pwrkey->confirm_work);
+		schedule_delayed_work(&pwrkey->confirm_work, CHECK_DELAY);
 	}
 
 #ifdef CONFIG_PMIC8XXX_FORCECRASH
@@ -113,7 +115,7 @@ static int pmic8xxx_pwrkey_suspend(struct device *dev)
 {
 	struct pmic8xxx_pwrkey *pwrkey = dev_get_drvdata(dev);
 
-	flush_delayed_work(&pwrkey->confirm_work);
+	flush_delayed_work_sync(&pwrkey->confirm_work);
 	if (device_may_wakeup(dev)) {
 		enable_irq_wake(pwrkey->key_press_irq);
 		enable_irq_wake(pwrkey->key_release_irq);
