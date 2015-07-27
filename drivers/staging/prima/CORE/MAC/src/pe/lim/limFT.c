@@ -812,7 +812,6 @@ tpPESession limFillFTSession(tpAniSirGlobal pMac,
 
     pftSessionEntry->encryptType = psessionEntry->encryptType;
 
-<<<<<<< HEAD
     if (pftSessionEntry->limRFBand == SIR_BAND_2_4_GHZ)
     {
        cbMode = pMac->roam.configParam.channelBondingMode24GHz;
@@ -825,12 +824,6 @@ tpPESession limFillFTSession(tpAniSirGlobal pMac,
                cbMode && pBeaconStruct->HTCaps.supportedChannelWidthSet;
     pftSessionEntry->htRecommendedTxWidthSet =
                pftSessionEntry->htSupportedChannelWidthSet;
-=======
-#ifdef WLAN_FEATURE_11AC
-    pftSessionEntry->vhtCapability = psessionEntry->vhtCapability;
-    pftSessionEntry->vhtCapabilityPresentInBeacon = psessionEntry->vhtCapabilityPresentInBeacon;
-#endif
->>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 
     palFreeMemory(pMac->hHdd, pBeaconStruct);
     return pftSessionEntry;

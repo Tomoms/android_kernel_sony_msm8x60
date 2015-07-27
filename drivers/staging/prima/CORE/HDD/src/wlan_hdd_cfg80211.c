@@ -7689,7 +7689,6 @@ static eHalStatus wlan_hdd_is_pno_allowed(hdd_adapter_t *pAdapter)
    return eHAL_STATUS_SUCCESS;
 }
 
-<<<<<<< HEAD
 void hdd_cfg80211_sched_scan_start_status_cb(void *callbackContext, VOS_STATUS status)
 {
     hdd_adapter_t *pAdapter = callbackContext;
@@ -7717,8 +7716,6 @@ void hdd_cfg80211_sched_scan_start_status_cb(void *callbackContext, VOS_STATUS s
     complete(&pAdapter->pno_comp_var);
 }
 
-=======
->>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 /*
  * FUNCTION: wlan_hdd_cfg80211_sched_scan_start
  * NL interface to enable PNO

@@ -6575,14 +6575,7 @@ static void hdd_driver_exit(void)
    }
    else
    {
-<<<<<<< HEAD
        INIT_COMPLETION(pHddCtx->ssr_comp_var);
-=======
-      while (pHddCtx->isLogpInProgress) {
-         VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_FATAL,
-              "%s:SSR in Progress; block rmmod for 1 second!!!", __func__);
-         msleep(1000);
->>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 
        if (pHddCtx->isLogpInProgress)
        {

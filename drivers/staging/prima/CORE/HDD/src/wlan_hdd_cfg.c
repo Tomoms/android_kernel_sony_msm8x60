@@ -2358,7 +2358,6 @@ REG_VARIABLE(CFG_BTC_SAP_ACTIVE_BT_LEN_NAME, WLAN_PARAM_Integer,
                  CFG_AMSDU_SUPPORT_IN_AMPDU_DEFAULT,
                  CFG_AMSDU_SUPPORT_IN_AMPDU_MIN,
                  CFG_AMSDU_SUPPORT_IN_AMPDU_MAX ),
-<<<<<<< HEAD
 
    REG_VARIABLE( CFG_ROAMING_DFS_CHANNEL_NAME , WLAN_PARAM_Integer,
                  hdd_config_t, allowDFSChannelRoam,
@@ -2366,8 +2365,6 @@ REG_VARIABLE(CFG_BTC_SAP_ACTIVE_BT_LEN_NAME, WLAN_PARAM_Integer,
                  CFG_ROAMING_DFS_CHANNEL_DEFAULT,
                  CFG_ROAMING_DFS_CHANNEL_MIN,
                  CFG_ROAMING_DFS_CHANNEL_MAX ),
-=======
->>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 };
 
 /*
@@ -2752,10 +2749,7 @@ static void print_hdd_cfg(hdd_context_t *pHddCtx)
   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH, "Name = [gEnableTrafficMonitor] Value = [%u] ", pHddCtx->cfg_ini->enableTrafficMonitor);
   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH, "Name = [gTrafficIdleTimeout] Value = [%u] ", pHddCtx->cfg_ini->trafficIdleTimeout);
   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH, "Name = [gAmsduSupportInAMPDU] Value = [%lu] ",pHddCtx->cfg_ini->isAmsduSupportInAMPDU);
-<<<<<<< HEAD
   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH, "Name = [gRoamtoDFSChannel] Value = [%u] ",pHddCtx->cfg_ini->allowDFSChannelRoam);
-=======
->>>>>>> c0a3bc4... prima: wlan: Revision 3.2.7.42
 }
 
 
