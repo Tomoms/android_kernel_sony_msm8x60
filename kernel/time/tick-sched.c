@@ -14,6 +14,7 @@
 #include <linux/cpu.h>
 #include <linux/err.h>
 #include <linux/hrtimer.h>
+#include <linux/timer.h>
 #include <linux/interrupt.h>
 #include <linux/kernel_stat.h>
 #include <linux/percpu.h>
