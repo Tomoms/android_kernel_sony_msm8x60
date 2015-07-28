@@ -213,6 +213,9 @@ struct snd_soc_dai_driver {
 	int (*suspend)(struct snd_soc_dai *dai);
 	int (*resume)(struct snd_soc_dai *dai);
 
+	/* compress dai */
+	bool compress_dai;
+
 	/* ops */
 	const struct snd_soc_dai_ops *ops;
 

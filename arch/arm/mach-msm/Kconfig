@@ -1608,12 +1608,6 @@ config CPU_VOLTAGE_TABLE
 	help
 	  Krait User Votlage Control
 
-config GPU_OVERCLOCK
-	bool "Enable GPU Overclocking option"
-	default n
-	help
-	  Adreno 3xx overclocking up to 480 MHz
-
 config OVERCLOCK
 	bool "Allow overclock"
 	default n
