@@ -2677,7 +2677,6 @@ void calc_load_enter_idle(void)
 void calc_load_exit_idle(void)
 {
 	struct rq *this_rq = this_rq();
-<<<<<<< HEAD
 
 	/*
 	 * If we're still before the sample window, we're done.
@@ -2690,20 +2689,6 @@ void calc_load_exit_idle(void)
 	 * accounted through the nohz accounting, so skip the entire deal and
 	 * sync up for the next window.
 	 */
-=======
-
-	/*
-	 * If we're still before the sample window, we're done.
-	 */
-	if (time_before(jiffies, this_rq->calc_load_update))
-		return;
-
-	/*
-	 * We woke inside or after the sample window, this means we're already
-	 * accounted through the nohz accounting, so skip the entire deal and
-	 * sync up for the next window.
-	 */
->>>>>>> 743b7c4... [backport] sched: Misc upstream scheduler improvements
 	this_rq->calc_load_update = calc_load_update;
 	if (time_before(jiffies, this_rq->calc_load_update + 10))
 		this_rq->calc_load_update += LOAD_FREQ;
