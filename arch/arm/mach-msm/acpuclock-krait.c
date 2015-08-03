@@ -941,7 +941,6 @@ ssize_t acpuclk_get_vdd_levels_str(char *buf) {
 			len += sprintf(buf + len, "%8lu: %8d\n", drv.acpu_freq_tbl[i].speed.khz,
 				drv.acpu_freq_tbl[i].vdd_core );
 		}
-
 		mutex_unlock(&driver_lock);
 	}
 	return len;

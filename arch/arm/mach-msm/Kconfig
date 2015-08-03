@@ -1602,17 +1602,17 @@ config MSM_DALRPC_TEST
 	help
 	  Exercises DAL RPC calls to QDSP6.
 
-config CPU_VOLTAGE_TABLE
-	bool "Enable CPU Voltage Table via sysfs for adjustements"
-	default n
-	help
-	  Krait User Votlage Control
-
 config OVERCLOCK
 	bool "Allow overclock"
 	default n
 	help
 		Unlock underclocking and overclocking
+
+config CPU_VOLTAGE_TABLE
+	bool "Enable CPU Voltage Table via sysfs for adjustements"
+	default n
+	help
+	  Krait User Voltage Control
 
 if CPU_FREQ_MSM
 
@@ -2708,4 +2708,11 @@ config FORCE_FAST_CHARGE
 	help
 		A simple sysfs interface to force adapters that
 		are detected as USB to charge as AC.
+
+config GPU_OVERCLOCK
+	bool "Enable GPU Overclocking"
+	default n
+	help
+	  Adreno 320 overclocking up to 480 MHz
+
 endif
