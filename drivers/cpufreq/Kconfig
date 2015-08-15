@@ -143,19 +143,6 @@ config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
-config CPU_FREQ_DEFAULT_GOV_INTELLIMM
-        bool "intelliminmax"
-        select CPU_FREQ_GOV_INTELLIMM
-        help
-          Use the CPUFreq governor 'intelliminmax' as default. This is
-          governor will use only 3 different frequencies, idle, UI and max
-
-config CPU_FREQ_DEFAULT_GOV_YANKACTIVE
-	bool "yankactive"
-	select CPU_FREQ_GOV_YANKACTIVE
-	help
-		Use the CPUFreq governor 'yankactive' as default.
-
 config CPU_FREQ_DEFAULT_GOV_HYPER
 	bool "HYPER"
 	select CPU_FREQ_GOV_HYPER
@@ -340,16 +327,6 @@ config CPU_FREQ_GOV_INTELLIACTIVE
 
 	  If in doubt, say N.
 
-config CPU_FREQ_GOV_INTELLIMM
-        tristate "'intelliminmax' cpufreq policy governor"
-        help
-          To compile this driver as a module, choose M here: the
-          module will be called cpufreq_interactive.
-
-          For details, take a look at linux/Documentation/cpu-freq.
-
-          If in doubt, say N.
-
 config CPU_FREQ_GOV_HYPER
 	tristate "'HYPER' cpufreq governor"
 	depends on CPU_FREQ
@@ -379,14 +356,6 @@ config CPU_FREQ_GOV_PEGASUSQ
 	depends on CPU_FREQ
 	help
 	  'pegasusq' governor.
-
-	  If in doubt, say N.
-
-config CPU_FREQ_GOV_YANKACTIVE
-	tristate "'yankactive' cpufreq governor"
-	depends on CPU_FREQ
-	help
-	  'yankactive' governor.
 
 	  If in doubt, say N.
 
