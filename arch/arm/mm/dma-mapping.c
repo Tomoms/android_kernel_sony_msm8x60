@@ -747,7 +747,6 @@ static void dma_cache_maint_page(struct page *page, unsigned long offset,
 		if (PageHighMem(page)) {
 			if (len + offset > PAGE_SIZE)
 				len = PAGE_SIZE - offset;
-			}
 
 			if (cache_is_vipt_nonaliasing()) {
 				vaddr = kmap_atomic(page);
@@ -758,16 +757,17 @@ static void dma_cache_maint_page(struct page *page, unsigned long offset,
 				if (vaddr) {
 					op(vaddr + offset, len, dir);
 					kunmap_high(page);
+					}
 				}
 			}
-		} else {
+		else {
 			vaddr = page_address(page) + offset;
 			op(vaddr, len, dir);
 		}
 		offset = 0;
 		pfn++;
 		left -= len;
-	} while (left);
+	 } while (left);
 }
 
 /*
