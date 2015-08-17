@@ -192,15 +192,15 @@ struct tmem_hostops {
 extern void tmem_register_hostops(struct tmem_hostops *m);
 
 /* core tmem accessor functions */
-extern int tmem_put(struct tmem_pool *pool, struct tmem_oid *oidp, uint32_t index,
-		char *data, size_t size, bool raw, bool ephemeral);
-extern int tmem_get(struct tmem_pool *pool, struct tmem_oid *oidp, uint32_t index,
-		char *data, size_t *size, bool raw, int get_and_free);
-extern int tmem_replace(struct tmem_pool *pool, struct tmem_oid *oidp,
-			uint32_t index, void *new_pampd);
-extern int tmem_flush_page(struct tmem_pool *pool,
-				struct tmem_oid *oidp, uint32_t index);
-extern int tmem_flush_object(struct tmem_pool *pool, struct tmem_oid *oidp);
-extern int tmem_destroy_pool(struct tmem_pool *pool);
-extern void tmem_new_pool(struct tmem_pool *pool, uint32_t flags);
+extern int tmem_put(struct tmem_pool *, struct tmem_oid *, uint32_t index,
+			char *, size_t, bool, bool);
+extern int tmem_get(struct tmem_pool *, struct tmem_oid *, uint32_t index,
+			char *, size_t *, bool, int);
+extern int tmem_replace(struct tmem_pool *, struct tmem_oid *, uint32_t index,
+			void *);
+extern int tmem_flush_page(struct tmem_pool *, struct tmem_oid *,
+			uint32_t index);
+extern int tmem_flush_object(struct tmem_pool *, struct tmem_oid *);
+extern int tmem_destroy_pool(struct tmem_pool *);
+extern void tmem_new_pool(struct tmem_pool *, uint32_t);
 #endif /* _TMEM_H */
