@@ -67,6 +67,18 @@ config CPU_FREQ_DEFAULT_GOV_POWERSAVE
 	  the frequency statically to the lowest frequency supported by
 	  the CPU.
 
+config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
+	bool "intelliactive"
+	select CPU_FREQ_GOV_INTELLIACTIVE
+	help
+	  Use the CPUFreq governor 'intelliactive' as default.
+
+config CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND2
+	bool "intellidemand2"
+	select CPU_FREQ_GOV_INTELLDEMAND2
+	help
+	  Use the CPUFreq governor 'intellidemand2' as default.
+
 config CPU_FREQ_DEFAULT_GOV_USERSPACE
 	bool "userspace"
 	select CPU_FREQ_GOV_USERSPACE
@@ -235,6 +247,18 @@ config CPU_FREQ_GOV_CONSERVATIVE
 	  For details, take a look at linux/Documentation/cpu-freq.
 
 	  If in doubt, say N.
+
+config CPU_FREQ_GOV_INTELLIACTIVE
+	tristate "'intelliactive' cpufreq governor"
+	depends on CPU_FREQ
+	help
+	  'intelliactive' CPU governor
+
+config CPU_FREQ_GOV_INTELLIDEMAND2
+	tristate "'intellidemand2' cpufreq governor"
+	depends on CPU_FREQ
+	help
+	  'intellidemand2' CPU governor
 
 menu "x86 CPU frequency scaling drivers"
 depends on X86
