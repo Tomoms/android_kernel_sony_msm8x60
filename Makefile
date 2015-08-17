@@ -563,6 +563,8 @@ all: vmlinux
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
+KBUILD_CFLAGS	+= $(call cc-disable-warning, maybe-uninitialized)
+KBUILD_CFLAGS	+= $(call cc-disable-warning, deprecated-declarations)
 else
 KBUILD_CFLAGS	+= -O3
 KBUILD_CFLAGS	+= $(call cc-disable-warning, array-bounds)
