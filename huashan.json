@@ -30,7 +30,6 @@
     "description": "All-new Tangerine kernel",
     "url": "http://cubeserver.eu/Tomoms/tangerine_v8.0.zip",
     "md5sum": "1037f3041a75ace9f354d9dc1d42aa18",
-    "install_method": "flash default kernel, then flash Tangerine!",
     "changelog": [
       "AnyKernel installation method",
       "ZRAM",
