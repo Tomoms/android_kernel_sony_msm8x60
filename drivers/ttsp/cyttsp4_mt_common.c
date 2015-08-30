@@ -430,10 +430,13 @@ static int cyttsp4_mt_open(struct input_dev *input)
 static void cyttsp4_mt_close(struct input_dev *input)
 {
 	struct device *dev = input->dev.parent;
+	struct cyttsp4_mt_data *md = dev_get_drvdata(dev);
 	struct cyttsp4_device *ttsp =
 		container_of(dev, struct cyttsp4_device, dev);
 
 	dev_dbg(dev, "%s\n", __func__);
+
+	cyttsp4_lift_all(md);
 
 	cyttsp4_unsubscribe_attention(ttsp, CY_ATTEN_IRQ,
 		cyttsp4_mt_attention, CY_MODE_OPERATIONAL);
@@ -453,6 +456,7 @@ static void cyttsp4_mt_early_suspend(struct early_suspend *h)
 
 	dev_dbg(dev, "%s\n", __func__);
 
+	cyttsp4_lift_all(md);
 	pm_runtime_put(dev);
 }
 
