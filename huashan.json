@@ -29,7 +29,7 @@
     "name": "v9.0",
     "description": "Tangerine kernel v9 - another big update!",
     "url": "http://cubeserver.eu/Tomoms/tangerine_v9.0.zip",
-    "md5sum": "1037f3041a75ace9f354d9dc1d42aa18",
+    "md5sum": "8c42715e6c5dec1c53c1a7f0487f638d",
     "changelog": [
       "built with GCC 5.2 and UBER Toolchain",
       "GPU idle frequency set to 200 MHz",
