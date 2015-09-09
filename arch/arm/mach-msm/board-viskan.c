@@ -4232,7 +4232,9 @@ static struct platform_device *cdp_devices[] __initdata = {
 	&ncp373_device,
 #endif
 	&msm_8960_q6_lpass,
+	&msm_8960_riva,
 	&msm_pil_tzapps,
+	&msm_pil_dsps,
 	&msm_pil_vidc,
 	&msm8960_device_otg,
 	&msm8960_device_gadget_peripheral,
