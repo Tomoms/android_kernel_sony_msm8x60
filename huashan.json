@@ -27,15 +27,13 @@
   "downloads": [
    {
     "name": "v9.0",
-    "description": "Tangerine kernel v9 - another big update!",
-    "url": "http://cubeserver.eu/Tomoms/tangerine_v9.0.zip",
-    "md5sum": "8c42715e6c5dec1c53c1a7f0487f638d",
+    "description": "Tangerine kernel v9.1",
+    "url": "http://cubeserver.eu/Tomoms/tangerine_v9.1.zip",
+    "md5sum": "dda1c4a1640ff0ad4e88caf8d60ffd4d",
     "changelog": [
-      "built with GCC 5.2 and UBER Toolchain",
-      "GPU idle frequency set to 200 MHz",
-      "loads of source updates",
-      "Linux 3.4.17",
-      "lionheart CPU governor",
+      "built with Cortex-A15 optimizations",
+      "f2fs updates",
+      "faster screen unlock",
       "check XDA for more, I'm lazy and I don't want to write everything here :)"
     ]
   }
