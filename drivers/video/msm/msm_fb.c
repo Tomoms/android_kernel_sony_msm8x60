@@ -1264,8 +1264,13 @@ static int msm_fb_blank(int blank_mode, struct fb_info *info)
 	msm_fb_pan_idle(mfd);
 	if (mfd->op_enable == 0) {
 		if (blank_mode == FB_BLANK_UNBLANK) {
-			mfd->suspend.panel_power_on = TRUE;
+			mfd->suspend.panel_power_state = MDP_PANEL_POWER_ON;
 			pump_up_the_jam();
+		} else if (blank_mode == FB_BLANK_VSYNC_SUSPEND) {
+			mfd->suspend.panel_power_state = MDP_PANEL_POWER_DOZE;
+			pump_up_the_jam();
+		} else {
+			mfd->suspend.panel_power_state = MDP_PANEL_POWER_OFF;
 		}
 	}
 	return msm_fb_blank_sub(blank_mode, info, mfd->op_enable);
