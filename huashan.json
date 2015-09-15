@@ -33,7 +33,7 @@
     "changelog": [
       "CPU underclocked to 281 MHz",
       "fixed a bug that caused a kernel panic",
-      "new bootanimation"
+      "new splashscreen"
     ]
   }
   ]
