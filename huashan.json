@@ -26,15 +26,14 @@
   ],
   "downloads": [
    {
-    "name": "v9.1",
-    "description": "Tangerine kernel v9.1",
-    "url": "http://cubeserver.eu/Tomoms/tangerine_v9.1.zip",
-    "md5sum": "dda1c4a1640ff0ad4e88caf8d60ffd4d",
+    "name": "v9.2",
+    "description": "Tangerine kernel v9.2",
+    "url": "http://cubeserver.eu/Tomoms/tangerine_v9.2.zip",
+    "md5sum": "ccf219b21eec353f081797c681348012",
     "changelog": [
-      "built with Cortex-A15 optimizations",
-      "f2fs updates",
-      "faster screen unlock",
-      "check XDA for more, I'm lazy and I don't want to write everything here :)"
+      "CPU underclocked to 281 MHz",
+      "fixed a bug that caused a kernel panic",
+      "new bootanimation"
     ]
   }
   ]
