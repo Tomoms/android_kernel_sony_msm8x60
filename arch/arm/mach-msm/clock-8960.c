@@ -3648,12 +3648,12 @@ static struct rcg_clk gfx3d_clk = {
 	.c = {
 		.dbg_name = "gfx3d_clk",
 		.ops = &clk_ops_rcg,
-#ifdef CONFIG_GPU_OVERCLOCK
+#ifndef CONFIG_GPU_OVERCLOCK
+ 		VDD_DIG_FMAX_MAP3(LOW,  128000000, NOMINAL, 300000000,
+ 				  HIGH, 400000000),
+#else
 		VDD_DIG_FMAX_MAP3(LOW,  128000000, NOMINAL, 320000000,
 				  HIGH, 480000000),
-#else
-		VDD_DIG_FMAX_MAP3(LOW,  128000000, NOMINAL, 300000000,
-				  HIGH, 400000000),
 #endif
 		CLK_INIT(gfx3d_clk.c),
 		.depends = &gmem_axi_clk.c,
