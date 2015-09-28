@@ -166,6 +166,7 @@ static struct acpu_level freq_tbl_PVS1[] __initdata = {
 	{ 1, {  1566000, HFPLL, 1, 0x3A }, L2(11), 1200000 + VOLTAGE_TUNE, AVS(0x0) },
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(12), 1225000 + VOLTAGE_TUNE, AVS(0x0) },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(13), 1250000 + VOLTAGE_TUNE
+
 		+ TURBO_FREQ_VOLTAGE_TUNE, AVS(0x70000B) },
 #ifdef CONFIG_OVERCLOCK
 	{ 1, {  1832000, HFPLL, 1, 0x44 }, L2(13),  1275000 + VOLTAGE_TUNE
@@ -194,6 +195,7 @@ static struct acpu_level freq_tbl_PVS2[] __initdata = {
 	{ 1, {  1566000, HFPLL, 1, 0x3A }, L2(11), 1200000 + VOLTAGE_TUNE, AVS(0x0) },
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(12), 1225000 + VOLTAGE_TUNE, AVS(0x0) },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(13), 1250000 + VOLTAGE_TUNE
+
 		+ TURBO_FREQ_VOLTAGE_TUNE, AVS(0x70000B) },
 #ifdef CONFIG_OVERCLOCK
 	{ 1, {  1832000, HFPLL, 1, 0x44 }, L2(13),  1275000 + VOLTAGE_TUNE
