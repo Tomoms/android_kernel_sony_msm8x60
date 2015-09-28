@@ -1058,14 +1058,14 @@ void __init setup_arch(char **cmdline_p)
 	arch_init_ideal_nops();
 
 #ifdef CONFIG_EFI
-	/* Once setup is done above, unmap the EFI memory map on
-	 * mismatched firmware/kernel archtectures since there is no
-	 * support for runtime services.
+	/* Once setup is done above, disable efi_enabled on mismatched
+	 * firmware/kernel archtectures since there is no support for
+	 * runtime services.
 	 */
-	if (efi_enabled(EFI_BOOT) &&
-	    IS_ENABLED(CONFIG_X86_64) != efi_enabled(EFI_64BIT)) {
+	if (efi_enabled && IS_ENABLED(CONFIG_X86_64) != efi_64bit) {
 		pr_info("efi: Setup done, disabling due to 32/64-bit mismatch\n");
 		efi_unmap_memmap();
+		efi_enabled = 0;
 	}
 #endif
 }
