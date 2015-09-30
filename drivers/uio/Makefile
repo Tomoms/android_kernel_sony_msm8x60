@@ -1,3 +1,6 @@
+KBUILD_CFLAGS += -Wno-unused-variable \
+			  -Wno-maybe-uninitialized
+
 obj-$(CONFIG_UIO)	+= uio.o
 obj-$(CONFIG_UIO_CIF)	+= uio_cif.o
 obj-$(CONFIG_UIO_PDRV)	+= uio_pdrv.o
