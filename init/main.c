@@ -79,10 +79,7 @@
 #ifdef CONFIG_X86_LOCAL_APIC
 #include <asm/smp.h>
 #endif
-
-#ifdef CONFIG_BOOT_TIME_MARKER
 #include <mach/board.h>
-#endif
 
 static int kernel_init(void *);
 
