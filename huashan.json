@@ -10,11 +10,12 @@
      "fast charging",
      "dynamic fsync",
      "intelliplug with advanced options",
-     "Linux source updates (Linux 3.4.17)",
+     "intelli-thermal",
+     "Linux source updates (Linux 3.4.72)",
      "I/O schedulers: fifo, sio, row, vr, zen, fiops, test, bfq, sioplus",
      "TCP congestion control algorithms: westwood, bic, highspeed, hybla, htcp, vegas, veno, scalable, lp, yeah, illinois",
-     "ZRAM, zsmalloc, qcache",
-     "CPU overlock and undervolt",
+     "ZRAM (from Linux 3.14), zsmalloc (from Linux 3.14), qcache",
+     "CPU overlock, underclock and undervolt",
      "Latest TWRP with f2fs support",
      "f2fs, cifs & NTFS support",
      "FauxSound 3.6",
@@ -26,14 +27,16 @@
   ],
   "downloads": [
    {
-    "name": "v9.2",
-    "description": "Tangerine kernel v9.2",
-    "url": "http://cubeserver.eu/Tomoms/tangerine_v9.2.zip",
-    "md5sum": "ccf219b21eec353f081797c681348012",
+    "name": "v10.1",
+    "description": "Tangerine kernel v10.1",
+    "url": "https://de1.androidfilehost.com/dl/r5AWvHmDNoH0Z3VLGKkb-g/1444214048/24052804347831088/tangerine_v10.1.zip",
+    "md5sum": "31eb2ad5672d78a69529be0f25c6e074",
     "changelog": [
-      "CPU underclocked to 281 MHz",
-      "fixed a bug that caused a kernel panic",
-      "new splashscreen"
+      "Linux 3.4.72 and other source updates",
+      "ZRAM and zsmalloc backported from Linux 3.14",
+      "new splashscreen",
+      "L2 frequency table has been improved",
+      "minor optimizations"
     ]
   }
   ]
