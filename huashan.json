@@ -27,16 +27,15 @@
   ],
   "downloads": [
    {
-    "name": "v10.1",
-    "description": "Tangerine kernel v10.1",
-    "url": "https://de1.androidfilehost.com/dl/r5AWvHmDNoH0Z3VLGKkb-g/1444214048/24052804347831088/tangerine_v10.1.zip",
-    "md5sum": "31eb2ad5672d78a69529be0f25c6e074",
+    "name": "v10.2",
+    "description": "Tangerine kernel v10.2",
+    "url": "https://dl.cubeserver.eu/Tomoms/tangerine_v10.2.zip",
+    "md5sum": "12ea5ad12650fc69002ce499d0f28fa5",
     "changelog": [
-      "Linux 3.4.72 and other source updates",
-      "ZRAM and zsmalloc backported from Linux 3.14",
-      "new splashscreen",
-      "L2 frequency table has been improved",
-      "minor optimizations"
+      "Linux 3.4.86 and other source updates",
+      "bug fixes",
+      "wheatley CPU governor readded",
+      "better default settings"
     ]
   }
   ]
