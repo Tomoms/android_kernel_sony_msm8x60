@@ -124,6 +124,12 @@ config CPU_FREQ_DEFAULT_GOV_WHEATLEY
 	help
 	  select wheatley as default.
 
+config CPU_FREQ_DEFAULT_GOV_BIOSHOCK
+	bool "bioshock"
+	select CPU_FREQ_GOV_BIOSHOCK
+	help
+	  select bioshock as default.
+
 config CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
 	bool "conservative"
 	select CPU_FREQ_GOV_CONSERVATIVE
@@ -242,6 +248,12 @@ config CPU_FREQ_GOV_WHEATLEY
 	select CPU_FREQ_TABLE
 	help
 	  wheatley CPU governor is based on ondemand.
+
+config CPU_FREQ_GOV_BIOSHOCK
+	tristate "'bioshock' cpufreq policy governor"
+	select CPU_FREQ_TABLE
+	help
+	  bioshock CPU governor
 
 config CPU_FREQ_GOV_CONSERVATIVE
 	tristate "'conservative' cpufreq governor"
