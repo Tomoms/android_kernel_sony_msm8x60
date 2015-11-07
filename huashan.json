@@ -6,12 +6,13 @@
   "xda": "http://forum.xda-developers.com/xperia-sp/orig-development/kernel-tangerine-kernel-v1-t3073297",
   "github": "https://github.com/Tomoms/android_kernel_sony_msm8x60",
   "features": [
-     "CPU governors: performance, powersave, lionheart, interactive, intelliactive, intellidemand, ondemandplus, userspace, conservative",
+     "CPU governors: performance, powersave, lionheart, wheatley, interactive, intelliactive, intellidemand2, bioshock, ondemandplus, userspace, conservative",
      "fast charging",
      "dynamic fsync",
      "intelliplug with advanced options",
+     "bricked hotplug",
      "intelli-thermal",
-     "Linux source updates (Linux 3.4.72)",
+     "Linux source updates (Linux 3.4.86)",
      "I/O schedulers: fifo, sio, row, vr, zen, fiops, test, bfq, sioplus",
      "TCP congestion control algorithms: westwood, bic, highspeed, hybla, htcp, vegas, veno, scalable, lp, yeah, illinois",
      "ZRAM (from Linux 3.14), zsmalloc (from Linux 3.14), qcache",
@@ -20,21 +21,23 @@
      "f2fs, cifs & NTFS support",
      "FauxSound 3.6",
      "CPU boost support",
-     "frandom support",
+     "frandom inbuilt",
      "Userspace I/O driver support for HID subsystem",
      "Ultra Kernel samepage merging",
      "swap support"
   ],
   "downloads": [
    {
-    "name": "v10.2",
-    "description": "Tangerine kernel v10.2",
-    "url": "https://dl.cubeserver.eu/Tomoms/tangerine_v10.2.zip",
-    "md5sum": "12ea5ad12650fc69002ce499d0f28fa5",
+    "name": "v11",
+    "description": "Tangerine kernel v11",
+    "url": "https://az1.androidfilehost.com/dl/0Qgay6D-lQsEj9DWiDV-fg/1446982116/24269982086990065/tangerine_v11.zip",
+    "md5sum": "81c814276e03d88f688a7906cc2544b0",
     "changelog": [
-      "Linux 3.4.86 and other source updates",
+      "minor source updates",
       "bug fixes",
-      "wheatley CPU governor readded",
+      "bioshock CPU governor added",
+      "bricked hotplug",
+      "splashscreen can be chosed by the user",
       "better default settings"
     ]
   }
