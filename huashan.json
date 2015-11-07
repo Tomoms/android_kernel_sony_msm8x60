@@ -28,17 +28,18 @@
   ],
   "downloads": [
    {
-    "name": "v11",
+    "name": "v11.1",
     "description": "Tangerine kernel v11",
-    "url": "https://az1.androidfilehost.com/dl/0Qgay6D-lQsEj9DWiDV-fg/1446982116/24269982086990065/tangerine_v11.zip",
-    "md5sum": "81c814276e03d88f688a7906cc2544b0",
+    "url": "http://tx1.androidfilehost.com/dl/4qibwYfSk9AGfGKmRFPsWQ/1446991043/24269982086990155/tangerine_v11.1.zip",
+    "md5sum": "18eb5e026df6d76cfa68e87b168bf330",
     "changelog": [
       "minor source updates",
       "bug fixes",
       "bioshock CPU governor added",
       "bricked hotplug",
       "splashscreen can be chosed by the user",
-      "better default settings"
+      "better default settings",
+      "v11.1: fixed /system not mounting in Temasek"
     ]
   }
   ]
