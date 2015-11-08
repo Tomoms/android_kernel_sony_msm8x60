@@ -29,9 +29,9 @@
   "downloads": [
    {
     "name": "v11.1",
-    "description": "Tangerine kernel v11",
-    "url": "http://tx1.androidfilehost.com/dl/4qibwYfSk9AGfGKmRFPsWQ/1446991043/24269982086990155/tangerine_v11.1.zip",
-    "md5sum": "18eb5e026df6d76cfa68e87b168bf330",
+    "description": "Tangerine kernel v11.2",
+    "url": "http://qc4.androidfilehost.com/dl/jiCNPnt3PXvqvKTsSDIiuA/1447143970/24269982086990846/tangerine_v11.2.zip",
+    "md5sum": "0a1529d70f0f0c91e31ffce29c748863",
     "changelog": [
       "minor source updates",
       "bug fixes",
@@ -39,7 +39,8 @@
       "bricked hotplug",
       "splashscreen can be chosed by the user",
       "better default settings",
-      "v11.1: fixed /system not mounting in Temasek"
+      "v11.1: fixed /system not mounting in Temasek",
+      "v11.2: fixed reboots"
     ]
   }
   ]
